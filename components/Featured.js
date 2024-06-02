@@ -74,7 +74,7 @@ export default function Featured({product}) {
                 <ButtonLink href={'/product/'+product._id} outline={1} white={1}>En savoir plus</ButtonLink>
                 <Button white onClick={addFeaturedToCart}>
                   <CartIcon />
-                  Ajouter au panier
+                  Réservez
                 </Button>
               </ButtonsWrapper>
             </div>

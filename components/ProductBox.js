@@ -75,7 +75,7 @@ export default function ProductBox({_id,title,description,price,images}) {
             €{price}
           </Price>
           <Button block onClick={() => addProduct(_id)} primary outline>
-            Payer
+            Réservez
           </Button>
         </PriceRow>
       </ProductInfoBox>
