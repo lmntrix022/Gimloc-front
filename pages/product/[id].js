@@ -44,11 +44,11 @@ export default function ProductPage({product}) {
             <p>{product.description}</p>
             <PriceRow>
               <div>
-                <Price>${product.price}</Price>
+                <Price>€{product.price}</Price>
               </div>
               <div>
                 <Button primary onClick={() => addProduct(product._id)}>
-                  <CartIcon />Add to cart
+                  <CartIcon />Acheter
                 </Button>
               </div>
             </PriceRow>

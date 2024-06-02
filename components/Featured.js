@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Center from "@/components/Center";
 import styled from "styled-components";
 import Button from "@/components/Button";
@@ -70,16 +71,16 @@ export default function Featured({product}) {
               <Title>{product.title}</Title>
               <Desc>{product.description}</Desc>
               <ButtonsWrapper>
-                <ButtonLink href={'/product/'+product._id} outline={1} white={1}>Read more</ButtonLink>
+                <ButtonLink href={'/product/'+product._id} outline={1} white={1}>En savoir plus</ButtonLink>
                 <Button white onClick={addFeaturedToCart}>
                   <CartIcon />
-                  Add to cart
+                  Ajouter au panier
                 </Button>
               </ButtonsWrapper>
             </div>
           </Column>
           <Column>
-            <img src="https://dawid-next-ecommerce.s3.amazonaws.com/1679151719649.png" alt=""/>
+            <img src="https://gimloc.s3.amazonaws.com/1717340244382.png" alt="Image de Couverture"/>
           </Column>
         </ColumnsWrapper>
       </Center>
