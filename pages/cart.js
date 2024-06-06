@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@/components/Button";
@@ -129,7 +128,6 @@ export default function CartPage() {
   if (isSuccess) {
     return (
       <>
-        <Header />
         <Center>
           <ColumnsWrapper>
             <Box>
@@ -144,13 +142,12 @@ export default function CartPage() {
 
   return (
     <>
-      <Header />
       <Center>
         <ColumnsWrapper>
           <Box>
-            <h2>Panier</h2>
+            <h2>Réservation</h2>
             {!cartProducts?.length && (
-              <div>Votre panier est vide</div>
+              <div>Pas de réservation</div>
             )}
             {products?.length > 0 && (
               <Table>

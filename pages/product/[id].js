@@ -1,5 +1,4 @@
 import Center from "@/components/Center";
-import Header from "@/components/Header";
 import Title from "@/components/Title";
 import {mongooseConnect} from "@/lib/mongoose";
 import {Product} from "@/models/Product";
@@ -33,7 +32,6 @@ export default function ProductPage({product}) {
   const {addProduct} = useContext(CartContext);
   return (
     <>
-      <Header />
       <Center>
         <ColWrapper>
           <WhiteBox>
@@ -48,7 +46,7 @@ export default function ProductPage({product}) {
               </div>
               <div>
                 <Button primary onClick={() => addProduct(product._id)}>
-                  <CartIcon />Acheter
+                  <CartIcon />Réserver
                 </Button>
               </div>
             </PriceRow>

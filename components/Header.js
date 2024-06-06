@@ -26,13 +26,12 @@ const StyledNav = styled.nav`
   ` : `
     display: none;
   `}
-  gap: 15px;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 70px 20px 20px;
+  padding: 10px 20px 20px;
   background-color: #222;
   @media screen and (min-width: 768px) {
     display: flex;
