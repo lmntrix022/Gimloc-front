@@ -109,7 +109,7 @@ export default function ProductBox({_id, title, description, price, images}) {
             src={images?.[0]} 
             alt={title} 
             layout="fill" 
-            objectFit="cover" 
+            objectFit="contain" 
           />
         </ImageLink>
         <ProductInfoBox>
