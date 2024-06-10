@@ -1,10 +1,14 @@
-import React, { useContext, useState } from "react";
-import Link from "next/link";
+import React, { useContext, useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { CartContext } from "@/components/CartContext";
-import Footer from '@/components/Footer'; // Assurez-vous que le chemin est correct
+import Footer from '@/components/Footer';
 import Image from 'next/image';
+import Link from "next/link";
+
+
+
 
 // Composants stylisés pour la navbar
 const NavbarContainer = styled.nav`
@@ -45,34 +49,38 @@ const Menu = styled.ul`
   transition: max-height 0.3s ease-in-out;
 
   @media (max-width: 768px) {
-    display: ${props => (props.open ? 'block' : 'none')};
+    display: ${props => (props.open ? 'flex' : 'none')};
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    top: 60px;
+    top: 0;
     left: 0;
     width: 100%;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.9);
     text-align: center;
-    max-height: ${props => (props.open ? '300px' : '0')};
-    overflow: hidden;
   }
 `;
 
 const MenuItem = styled.li`
   margin-left: 20px;
+  color: #fff;
 
   @media (max-width: 768px) {
-    margin: 0;
+    margin: 20px 0;
     padding: 10px 0;
-    border-top: 1px solid #444;
-  }
-
-  a {
     color: #fff;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: bold;
-    &:hover {
-      color: #ff7a00;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+
+      &:hover {
+        color: #ff7a00;
+      }
     }
   }
 `;
@@ -81,6 +89,7 @@ const Hamburger = styled.div`
   display: none;
   flex-direction: column;
   cursor: pointer;
+  z-index: 1100; /* Ensure the hamburger icon is above the menu */
 
   @media (max-width: 768px) {
     display: flex;
@@ -90,10 +99,46 @@ const Hamburger = styled.div`
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { cartProducts } = useContext(CartContext);
+  const router = useRouter();
 
   const handleToggle = () => {
     setOpen(!open);
   };
+
+  const handleNavigation = (path) => {
+    setOpen(false);
+    router.push(path);
+  };
+
+  // Utilisation de useEffect pour gérer les liens dynamiquement
+  useEffect(() => {
+    const menuItems = [
+      { path: '/voitures', label: 'VOITURES' },
+      { path: '/motos', label: 'MOTOS' },
+      { path: '/voitureSpeciales', label: 'VÉHICULES SPÉCIAUX' },
+      { path: '/cart', label: 'RESERVER' },
+      { path: '/services', label: 'SERVICES' },
+      { path: '/contact', label: 'CONTACT' },
+    ];
+
+    const menuList = document.getElementById('menuList');
+    menuList.innerHTML = '';
+
+    menuItems.forEach(item => {
+      const menuItem = document.createElement('li');
+      menuItem.className = 'menu-item';
+      menuItem.style.margin = '20px 0';
+      menuItem.style.padding = '10px 0';
+      menuItem.style.color = '#fff';
+      menuItem.innerHTML = `<a href="${item.path}" style="color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: bold;">${item.label}</a>`;
+      menuItem.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleNavigation(item.path);
+      });
+
+      menuList.appendChild(menuItem);
+    });
+  }, []);
 
   return (
     <NavbarContainer>
@@ -103,40 +148,9 @@ const Navbar = () => {
         </Link>
       </Logo>
       <Hamburger onClick={handleToggle}>
-        <FaBars size={25} color="#ff7a00" />
+        {open ? <FaTimes size={25} color="#ff7a00" /> : <FaBars size={25} color="#ff7a00" />}
       </Hamburger>
-      <Menu open={open}>
-        <MenuItem>
-          <Link href="/voitures" passHref>
-            <p>VOITURES</p>
-          </Link>
-        </MenuItem>
-         <MenuItem>
-          <Link href="/motos" passHref>
-            <p>MOTOS</p>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link href="/voitureSpeciales" passHref>
-            <p>VÉHICULES SPÉCIAUX</p>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link href="/cart" passHref>
-            <p>RESERVER</p>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link href="/services" passHref>
-            <p>SERVICES</p>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link href="/contact" passHref>
-            <p>CONTACT</p>
-          </Link>
-        </MenuItem>
-      </Menu>
+      <Menu id="menuList" open={open}></Menu>
     </NavbarContainer>
   );
 };
@@ -145,9 +159,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <main style={{ paddingTop: '60px' }}>{children}</main> {/* Ajoutez un padding-top pour éviter que le contenu ne soit masqué par la navbar */}
-      <br />
-      <br />
+      <main style={{ paddingTop: '60px' }}>{children}</main>
       <Footer />
     </>
   );
