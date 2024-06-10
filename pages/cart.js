@@ -79,17 +79,30 @@ export default function CartPage() {
   const [streetAddress, setStreetAddress] = useState('');
   const [country, setCountry] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [daysBetween, setDaysBetween] = useState(null); // Ajoutez ceci pour suivre la durée de la location
 
   useEffect(() => {
-    if (cartProducts.length > 0) {
-      axios.post('/api/cart', { ids: cartProducts })
-        .then(response => {
-          setProducts(response.data);
-        });
-    } else {
-      setProducts([]);
-    }
-  }, [cartProducts]);
+  // Simulez la récupération de la durée de la location depuis le formulaire de réservation
+  const storedDaysBetween = localStorage.getItem('daysBetween');
+  if (storedDaysBetween) {
+    setDaysBetween(Number(storedDaysBetween));
+  }
+
+  if (cartProducts.length > 0) {
+    axios.post('/api/cart', { ids: cartProducts })
+      .then(response => {
+        setProducts(response.data);
+      });
+  } else {
+    setProducts([]);
+  }
+}, [cartProducts]);
+
+// Ajoutez un console.log pour vérifier daysBetween
+useEffect(() => {
+  console.log("daysBetween:", daysBetween);
+}, [daysBetween]);
+
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -110,19 +123,30 @@ export default function CartPage() {
   }
 
   async function goToPayment() {
-    const response = await axios.post('/api/checkout', {
+    const reservationData = {
       name, email, city, postalCode, streetAddress, country,
       cartProducts,
-    });
-    if (response.data.url) {
-      window.location = response.data.url;
+      daysBetween, // Incluez la durée de la location dans les données de réservation
+    };
+  
+    try {
+      await axios.post('/api/saveReservation', reservationData);
+      const response = await axios.post('/api/checkout', reservationData);
+      if (response.data.url) {
+        window.location = response.data.url;
+      }
+    } catch (error) {
+      console.error('Failed to save reservation', error);
     }
   }
+  
 
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find(p => p._id === productId)?.price || 0;
-    total += price;
+    total += price * daysBetween; 
+    console.log(daysBetween);
+    // Multipliez le prix par la durée de la location
   }
 
   if (isSuccess) {
@@ -132,7 +156,7 @@ export default function CartPage() {
           <ColumnsWrapper>
             <Box>
               <h1>Merci pour votre commande !</h1>
-              <p>Nous vous enverrons un courriel lorsque votre commande sera envoyée.</p>
+              <p>On vous enverra un courriel pour confirmer votre réservation.</p>
             </Box>
           </ColumnsWrapper>
         </Center>
@@ -168,11 +192,9 @@ export default function CartPage() {
                         {product.title}
                       </ProductInfoCell>
                       <td>
-                        <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
                         <QuantityLabel>
-                          {cartProducts.filter(id => id === product._id).length}
+                          {daysBetween}
                         </QuantityLabel>
-                        <Button onClick={() => moreOfThisProduct(product._id)}>+</Button>
                       </td>
                       <td>
                         <Button onClick={() => removeFromCart(product._id)}>Supprimer</Button>

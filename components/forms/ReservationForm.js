@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { fr } from 'date-fns/locale'; // Importer le locale français
+import { differenceInDays } from 'date-fns'; // Importer la fonction differenceInDays
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
 
@@ -125,11 +126,11 @@ const StyledDatePicker = styled(DatePicker)`
 const FindVehicleButton = styled.button`
   width: 100%;
   padding: 12px;
-  background-color: #ff7a00;
-  color: black;
+  background-color: ${({ disabled }) => (disabled ? '#ff7a00' : '#000')};
+  color: ${({ disabled }) => (disabled ? '#000' : '#ff7a00')};
   border: none;
   border-radius: 10px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   margin-top: 10px;
   font-size: 1rem;
   font-weight: bold;
@@ -138,7 +139,7 @@ const FindVehicleButton = styled.button`
   &:hover {
     color: #ff7b01;
     background-color: #000;
-    box-shadow: inset 3px 3px 6px rgba(190, 190, 190, 0.7), inset -3px -3px 6px rgba(255, 255, 255, 0.7);
+    box-shadow: ${({ disabled }) => (disabled ? 'none' : 'inset 3px 3px 6px rgba(190, 190, 190, 0.7), inset -3px -3px 6px rgba(255, 255, 255, 0.7)')};
   }
 `;
 
@@ -164,6 +165,18 @@ const ReturnContainer = styled.div`
 `;
 
 const bureauDetails = {
+  'Casablanca-aeroport': {
+    address: "Adresse de Fès aéroport",
+    phone: "Numéro de téléphone de Fès aéroport",
+    fax: "Numéro de fax de Fès aéroport",
+    hours: "Lundi - Vendredi : 09h00 - 21h00",
+  },
+  'Marrakech-aeroport': {
+    address: "1230 E Vermont, Los Angeles, CA, USA",
+    phone: "+212627025716",
+    fax: "+212627025716",
+    hours: "Lundi - Vendredi : 09h00 - 21h00, Samedi : 09h00 - 19h00, Dimanche : Fermé",
+  },
   'fes-aeroport': {
     address: "Adresse de Fès aéroport",
     phone: "Numéro de téléphone de Fès aéroport",
@@ -196,20 +209,41 @@ const bureauDetails = {
   }
 };
 
-const ReservationForm = () => {
+const ReservationForm = ({ onFindVehicle }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [startBureau, setStartBureau] = useState('');
+  const [endBureau, setEndBureau] = useState('');
   const [hoveredOption, setHoveredOption] = useState(null);
   const [hoveredOptionTop, setHoveredOptionTop] = useState(0);
   const [samePlaceReturn, setSamePlaceReturn] = useState(false);
+
+  const isFormValid = startDate && endDate && startBureau && (samePlaceReturn || endBureau);
+
+  const handleFindVehicleClick = () => {
+    if (isFormValid) {
+      const daysBetween = differenceInDays(endDate, startDate);
+      const formData = {
+        startDate,
+        endDate,
+        startBureau,
+        endBureau: samePlaceReturn ? startBureau : endBureau,
+        samePlaceReturn,
+        daysBetween, // Ajouter la durée de la location ici
+      };
+      localStorage.setItem('daysBetween', daysBetween); // Stocker dans localStorage
+      onFindVehicle(formData); // Pass the form data to the onFindVehicle function
+    }
+  };
 
   return (
     <ReservationFormContainer>
       <Title>Départ</Title>
       <SelectContainer>
         <CustomSelect
+          value={startBureau}
+          onChange={(e) => setStartBureau(e.target.value)}
           onMouseLeave={() => setHoveredOption(null)}
-          onChange={() => setHoveredOption(null)}
         >
           <option value="">Choisissez le bureau</option>
           {Object.keys(bureauDetails).map((bureau) => (
@@ -237,7 +271,7 @@ const ReservationForm = () => {
       </SelectContainer>
       <SamePlaceReturn>
         <CustomCheckbox
-          id="same-place-return" 
+          id="same-place-return"
           checked={samePlaceReturn}
           onChange={(e) => setSamePlaceReturn(e.target.checked)}
         />
@@ -254,8 +288,9 @@ const ReservationForm = () => {
       <ReturnContainer show={!samePlaceReturn}>
         <SelectContainer>
           <CustomSelect
+            value={endBureau}
+            onChange={(e) => setEndBureau(e.target.value)}
             onMouseLeave={() => setHoveredOption(null)}
-            onChange={() => setHoveredOption(null)}
           >
             <option value="">Choisissez le bureau</option>
             {Object.keys(bureauDetails).map((bureau) => (
@@ -290,7 +325,9 @@ const ReservationForm = () => {
         dateFormat="dd/MM/yyyy" // Format jj/mm/an
         locale={fr} // Passer le locale français
       />
-      <FindVehicleButton>Trouver un véhicule</FindVehicleButton>
+      <FindVehicleButton disabled={!isFormValid} onClick={handleFindVehicleClick}>
+        Trouver un véhicule
+      </FindVehicleButton>
       <ResetLink href="#">Effacer Les Données</ResetLink>
     </ReservationFormContainer>
   );

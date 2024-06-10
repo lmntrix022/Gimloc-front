@@ -10,6 +10,7 @@ font-size: 32px;
 `;
 
 export default function NewProducts({products}) {
+
   return (
     <Center>
       <Title>LES VÉHICULES LES PLUS DEMANDÉS</Title>< br/>

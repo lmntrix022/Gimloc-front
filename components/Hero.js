@@ -135,39 +135,39 @@ const Hero = () => {
           <BentoBox bgImage="./background/bg1.jpg" style={{ gridArea: 'box1' }}>
             <FaCar className="icon" />
             <div className="title">Location de Voitures</div>
-            <p className='BentoDescription'>Bienvenue chez <strong>Gimlocautomoto</strong>, votre agence de location de voiture de confiance à Marrakech !</p>
+            <p className='BentoDescription'>Chez Gimlocautomoto, notre mission est simple : faire en sorte que chaque événement rencontre à l&#39;instant parfait. Depuis notre création, nous nous engageons à offrir un service de location de voiture qui s&#39;adapte à vos besoins et dépasse vos attentes.</p>
           </BentoBox>
           <BentoBox bgImage="./background/bg2.jpg" style={{ gridArea: 'box2' }}>
             <FaMapSigns className="icon" />
             <div className="title">Exploration</div>
-            <p className='BentoDescription'>Notre agence se trouve au cœur de la magnifique ville de Marrakech, prête à vous offrir une expérience de location de voiture exceptionnelle pour rendre votre séjour encore plus mémorable.</p>
+            <p className='BentoDescription'>Découvrez des horizons nouveaux où chaque événement rencontre à l&#39;instant. Avec nos véhicules modernes, partez à l&#39;aventure en toute sérénité et explorez sans limites. Laissez-nous vous accompagner dans vos découvertes. </p>
           </BentoBox>
 
           <BentoBox bgImage="./background/bg3.jpg" style={{ gridArea: 'box3' }}>
             <FaWrench className="icon" />
             <div className="title">Véhicules Modernes</div>
-            <p className='BentoDescription'>Nos véhicules sont soigneusement entretenus, modernes et équipés des dernières technologies pour garantir votre confort et votre sécurité tout au long de votre voyage.</p>
+            <p className='BentoDescription'>Nos véhicules sont soigneusement entretenus, modernes et équipés des dernières technologies pour garantir votre confort et votre sécurité tout au long de votre voyage. Chaque événement rencontre à l&#39;instant avec nos voitures à la pointe de l&#39;innovation.</p>
           </BentoBox>
           
           <BentoBox bgImage="./background/bg4.jpg" style={{ gridArea: 'box4' }}>
             <FaPeopleCarry className="icon" />
             <div className="title">Service de Qualité</div>
-            <p className='BentoDescription'>Notre équipe chaleureuse et professionnelle est dédiée à vous fournir un service de qualité supérieure.</p>
+            <p className='BentoDescription'>Nous nous engageons à offrir un service de qualité où chaque détail compte. De la réservation à la remise du véhicule, nous veillons à ce que chaque événement rencontre à l&#39;instant d&#39;une manière exceptionnelle et mémorable.</p>
           </BentoBox>
           <BentoBox bgImage="./background/bg5.jpg" style={{ gridArea: 'box5' }}>
             <FaRegCalendarAlt className="icon" />
             <div className="title">Flexibilité</div>
-            <p className='BentoDescription'>Nous offrons des options de location à court et long terme, ainsi que des modalités de ramassage et de retour adaptées à vos besoins.</p>
+            <p className='BentoDescription'>Profitez d&#39;une flexibilité totale avec nos options de location. Que ce soit pour une journée ou une semaine, nous nous adaptons à vos besoins. Avec nous, chaque événement rencontre à l&#39;instant, sans contraintes ni soucis.</p>
           </BentoBox>
           <BentoBox bgImage="./background/bg6.jpg" style={{ gridArea: 'box6' }}>
             <FaRegThumbsUp className="icon" />
             <div className="title">Satisfaction</div>
-            <p className='BentoDescription'>Chez <strong>Gimlocautomoto</strong>, nous valorisons votre satisfaction. C’est pourquoi nous nous efforçons continuellement de dépasser vos attentes en matière de service et de qualité.</p>
+            <p className='BentoDescription'>Votre satisfaction est notre priorité. Nous faisons tout pour que votre expérience de location soit parfaite. Parce que chaque événement mérite de rencontrer l&#39;instant de la meilleure façon possible, nous nous assurons que vous soyez entièrement satisfait.</p>
           </BentoBox>
           <BentoBox bgImage="./background/bg7.jpg" style={{ gridArea: 'box7' }}>
             <FaCar className="icon" />
             <div className="title">Conseils Locaux</div>
-            <p className='BentoDescription'>Nous sommes fiers de partager notre connaissance approfondie de Marrakech et de ses environs, en vous fournissant des conseils et des recommandations pour que vous puissiez profiter pleinement de votre séjour.</p>
+            <p className='BentoDescription'>Bénéficiez de nos conseils locaux pour découvrir les meilleurs endroits et les trésors cachés de votre destination. Avec notre expertise, chaque événement rencontre à l&#39;instant et devient une expérience enrichissante et inoubliable.</p>
           </BentoBox>
         </ContentWrapper>
       </Container>

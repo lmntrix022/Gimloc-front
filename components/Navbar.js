@@ -104,7 +104,6 @@ const Navbar = () => {
         <FaBars size={25} color="#ff7a00" />
       </Hamburger>
       <Menu open={open}>
-        <MenuItem><a href={'/'}>ACCUEIL</a></MenuItem>
         <MenuItem><a href={'/voitures'}>VOITURES</a></MenuItem>
         <MenuItem><a href={'/voitureSpeciales'}>VÉHICULES SPÉCIAUX</a></MenuItem>
         <MenuItem><a href={'/cart'}>RESERVER ({cartProducts.length}) </a></MenuItem>

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReservationForm from '../components/forms/ReservationForm';
+import ProductModal from './modal/ProductModal'; // Assurez-vous que le chemin est correct
 
 const ReservationContainer = styled.div`
   display: flex;
@@ -54,31 +55,61 @@ const BannerTitle = styled.h1`
 `;
 
 const BannerDescription = styled.p`
-  font-size: 1em;
+  font-size: 1.4em;
   margin-bottom: 1px;
   line-height: 1.6;
   padding-bottom: 20px;
 
   @media (min-width: 768px) {
-    font-size: 1.2em;
+    font-size: 1.5em;
   }
 `;
 
+const Reservation = ({ products }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const Reservation = () => {
+  const handleFindVehicle = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmitModal = (selectedProduct) => {
+    console.log('Produit sélectionné:', selectedProduct);
+    setIsModalOpen(false);
+  };
+
   return (
     <ReservationContainer>
       <Overlay />
       <HeroBanner>
         <BannerTitle>Bienvenue chez <br /> Guide in Maroc</BannerTitle>
         <BannerDescription>
-          Notre agence se trouve au cœur de la magnifique ville de Marrakech, prête à vous offrir une expérience de location de voiture exceptionnelle pour rendre votre séjour encore plus mémorable. Que vous soyez ici pour explorer les souks animés, vous aventurer dans les paysages désertiques environnants ou découvrir les palais historiques, nous avons la voiture parfaite pour vous.
+          Que ce soit pour un mariage, un voyage d&#39;affaires ou une escapade de week-end, nous croyons que chaque moment compte. Avec notre service de location de voiture, chaque événement rencontre à l&#39;instant.  
         </BannerDescription>
       </HeroBanner>
       <br />
-      <ReservationForm />
+      <ReservationForm onFindVehicle={handleFindVehicle} />
+      <ProductModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSubmit={handleSubmitModal}
+        products={products}
+      />
     </ReservationContainer>
   );
 };
 
 export default Reservation;
+
+export async function getServerSideProps() {
+  await mongooseConnect();
+  const products = await Product.find();
+  return {
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+    }
+  };
+}

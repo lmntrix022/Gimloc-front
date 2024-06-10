@@ -124,13 +124,13 @@ const WhyChooseGimlocautomoto = () => {
 
   return (
     <Container><br />
-      <Title><br />POURQUOI CHOISIR GIMLOCAUTOMOTO ?</Title>
+      <Title><br />CHAQUE INSTANT MERITE UN VEHICULE PARFAIT</Title>
       <FeaturesWrapper>
         <Tilt>
           <Feature>
             <div className="default-content">
               <IconTitleWrapper>
-                <FeatureTitle>Grand parc automobile</FeatureTitle>
+                <FeatureTitle>Plusieurs Véhicules</FeatureTitle>
                 <Icon>
                   <Image src="/icon1-light-preview.png" alt="Grand parc de véhicules" width={100} height={100} />
                 </Icon>
