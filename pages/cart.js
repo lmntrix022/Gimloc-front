@@ -122,6 +122,22 @@ useEffect(() => {
     removeProduct(id);
   }
 
+
+  function increaseDays(productId) {
+    setDaysBetween(prevState => ({
+      ...prevState,
+      [productId]: (prevState[productId] || 0) + 1
+    }));
+  }
+  
+  function decreaseDays(productId) {
+    setDaysBetween(prevState => ({
+      ...prevState,
+      [productId]: Math.max((prevState[productId] || 0) - 1, 0)
+    }));
+  }
+
+
   async function goToPayment() {
     const reservationData = {
       name, email, city, postalCode, streetAddress, country,
@@ -144,7 +160,7 @@ useEffect(() => {
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find(p => p._id === productId)?.price || 0;
-    total += price * daysBetween; 
+    total += price * daysBetween ; 
     console.log(daysBetween);
     // Multipliez le prix par la durée de la location
   }
@@ -192,8 +208,14 @@ useEffect(() => {
                         {product.title}
                       </ProductInfoCell>
                       <td>
+                      <QuantityLabel>
+                        <Button
+                            onClick={() => lessOfThisProduct(product._id)}>-</Button>
                         <QuantityLabel>
-                          {daysBetween}
+                            {cartProducts.filter(id => id === product._id).length}
+                        </QuantityLabel>
+                          <Button
+                            onClick={() => moreOfThisProduct(product._id)}>+</Button>
                         </QuantityLabel>
                       </td>
                       <td>

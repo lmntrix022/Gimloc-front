@@ -1,8 +1,8 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import styled from 'styled-components';
 import { FaBars } from 'react-icons/fa';
-import {CartContext} from "@/components/CartContext";
+import { CartContext } from "@/components/CartContext";
 import Footer from '@/components/Footer'; // Assurez-vous que le chemin est correct
 import Image from 'next/image';
 
@@ -24,7 +24,7 @@ const NavbarContainer = styled.nav`
   }
 `;
 
-const Logo = styled(Link)`
+const Logo = styled.div`
   font-size: 1.8rem;
   color: #ff7a00;
   font-weight: bold;
@@ -88,8 +88,8 @@ const Hamburger = styled.div`
 `;
 
 const Navbar = () => {
-  const [open, setOpen] = React.useState(false);
-  const {cartProducts} = useContext(CartContext);
+  const [open, setOpen] = useState(false);
+  const { cartProducts } = useContext(CartContext);
 
   const handleToggle = () => {
     setOpen(!open);
@@ -97,16 +97,45 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <Logo href={'/'}>
-        <Image src="/gimloc_logo.png" alt="Image de logo" width={80} height={40} />
+      <Logo>
+        <Link href="/" passHref>
+          <Image src="/gimloc_logo.png" alt="Image de logo" width={80} height={40} />
+        </Link>
       </Logo>
       <Hamburger onClick={handleToggle}>
         <FaBars size={25} color="#ff7a00" />
       </Hamburger>
       <Menu open={open}>
-        <MenuItem><a href={'/voitures'}>VOITURES</a></MenuItem>
-        <MenuItem><a href={'/voitureSpeciales'}>VÉHICULES SPÉCIAUX</a></MenuItem>
-        <MenuItem><a href={'/cart'}>RESERVER ({cartProducts.length}) </a></MenuItem>
+        <MenuItem>
+          <Link href="/voitures" passHref>
+            <p>VOITURES</p>
+          </Link>
+        </MenuItem>
+         <MenuItem>
+          <Link href="/motos" passHref>
+            <p>MOTOS</p>
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href="/voitureSpeciales" passHref>
+            <p>VÉHICULES SPÉCIAUX</p>
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href="/cart" passHref>
+            <p>RESERVER</p>
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href="/services" passHref>
+            <p>SERVICES</p>
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href="/contact" passHref>
+            <p>CONTACT</p>
+          </Link>
+        </MenuItem>
       </Menu>
     </NavbarContainer>
   );
