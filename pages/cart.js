@@ -160,7 +160,7 @@ useEffect(() => {
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find(p => p._id === productId)?.price || 0;
-    total += price * daysBetween ; 
+    total += price  ; 
     console.log(daysBetween);
     // Multipliez le prix par la durée de la location
   }
