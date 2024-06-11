@@ -31,7 +31,6 @@ const Title = styled.h1`
   padding-bottom: 5%;
 `;
 
-
 const FeaturesWrapper = styled.div`
   display: flex;
   justify-content: space-around;
@@ -44,7 +43,6 @@ const Feature = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 300px;
   text-align: justify;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
@@ -54,6 +52,9 @@ const Feature = styled.div`
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.2);
   animation: ${fadeIn} 0.6s ease-in-out;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  width: 300px; /* Fixed width */
+  height: 400px; /* Fixed height */
+  box-sizing: border-box; /* Ensures padding is included in the height and width */
 
   &:hover {
     transform: translateY(-10px);
@@ -74,8 +75,6 @@ const Feature = styled.div`
   }
 `;
 
-
-
 const IconTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,12 +93,11 @@ const Icon = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.2);
 `;
 
-
 const FeatureTitle = styled.h2`
   font-size: 30px;
   color: #fff;
   text-align: center;
-  margin-top:20px;
+  margin-top: 20px;
 `;
 
 const Description = styled.p`
@@ -111,7 +109,6 @@ const Description = styled.p`
 `;
 
 const WhyChooseGimlocautomoto = () => {
-
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
