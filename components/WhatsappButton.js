@@ -25,7 +25,7 @@ const WhatsappButtonStyled = styled.a`
 `;
 
 const WhatsappButton = () => {
-  const whatsappUrl = `https://wa.me/212627025716?text=Bonjour, je veux réserver un véhicule.`;
+  const whatsappUrl = `https://wa.me/33749849624?text=Bonjour, je veux réserver un véhicule.`;
   return (
     <WhatsappButtonStyled href={whatsappUrl} target="_blank" rel="noopener noreferrer">
       <FaWhatsapp size={30} />
