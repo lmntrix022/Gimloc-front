@@ -137,7 +137,7 @@ const WhyChooseGimlocautomoto = () => {
               </IconTitleWrapper>
             </div>
             <Description className="hover-content">
-              Nous offrons une variété étendue de véhicules convenant à toutes les exigences et à tous les budgets. Que vous ayez besoin d&#39;une petite voiture économique, d&#39;une berline confortable, d&#39;un SUV spacieux ou d&#39;une voiture de luxe, nous avons le modèle parfait pour vous.
+              Nous offrons une large gamme de véhicules convenant a tous les budgets. De la citadine économique, la berline confortable, le SUV spacieux jusqu&#39;a la voiture de luxe, nous avons le modèle qui repondra a votre désir.
               <IconTitleWrapper>
                 <Icon className="paddingIcon">
                   <Image src="/icon1-light-preview.png" alt="Un service clientèle de premier ordre" width={70} height={70} />
@@ -178,7 +178,7 @@ const WhyChooseGimlocautomoto = () => {
             </div>
             
             <Description className="hover-content">
-              Nos collaborateurs dévoués sont à votre disposition pour vous offrir un service clientèle exceptionnel. Nous nous engageons à répondre à toutes vos interrogations, à vous accompagner durant l&#39;intégralité de la procédure de location et à vous assister tout au long de votre expérience de location de voiture.
+              Durant le temps de location, nos collaborateurs sont a votre disposition 7j/7 et 24h/24. Votre satisfaction est notre priorité.
               <IconTitleWrapper>
                 <Icon className="paddingIcon">
                   <Image src="/icon2-grade-preview.png" alt="Un service clientèle de premier ordre" width={70} height={70} />

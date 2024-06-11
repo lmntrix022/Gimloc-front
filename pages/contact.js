@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 import styled from 'styled-components';
+import WhatsappButton from '@/components/WhatsappButton';
+import MailButton from '@/components/MailButton';
+
 
 // Styles
 const Container = styled.div`
-  padding: 20px;
+  padding: 40px;
   max-width: 800px;
   margin: 0 auto;
   background: #e0e0e0; /* Background color to show the neumorphism effect */
@@ -174,7 +177,10 @@ const ContactPage = () => {
            IMM. 12, LOT SINE BD ALLAL AL FASSI, MARRAKECH 40070
         </ContactItem>
       </ContactDetails>
+      <WhatsappButton /> 
+      <MailButton mailto="info@guideinmaroc.com"/> 
     </Container>
+    
   );
 };
 

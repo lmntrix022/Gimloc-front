@@ -7,9 +7,6 @@ import Footer from '@/components/Footer';
 import Image from 'next/image';
 import Link from "next/link";
 
-
-
-
 // Composants stylisés pour la navbar
 const NavbarContainer = styled.nav`
   width: 100%;
@@ -64,8 +61,22 @@ const Menu = styled.ul`
 `;
 
 const MenuItem = styled.li`
-  margin-left: 20px;
+  margin-left: 40px;
   color: #fff;
+
+  a {
+    color: ${props => (props.selected ? '#ff7a00' : '#fff')};
+    background: ${props => (props.selected ? 'rgba(255, 122, 0, 0.2)' : 'transparent')};
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+
+    &:hover {
+      color: #ff7a00;
+      background: rgba(255, 122, 0, 0.2);
+    }
+  }
 
   @media (max-width: 768px) {
     margin: 20px 0;
@@ -73,13 +84,17 @@ const MenuItem = styled.li`
     color: #fff;
 
     a {
-      color: #fff;
+      color: ${props => (props.selected ? '#ff7a00' : '#fff')};
+      background: ${props => (props.selected ? 'rgba(255, 122, 0, 0.2)' : 'transparent')};
       text-decoration: none;
       font-size: 1.5rem;
       font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
 
       &:hover {
         color: #ff7a00;
+        background: rgba(255, 122, 0, 0.2);
       }
     }
   }
@@ -89,7 +104,7 @@ const Hamburger = styled.div`
   display: none;
   flex-direction: column;
   cursor: pointer;
-  z-index: 1100; /* Ensure the hamburger icon is above the menu */
+  z-index: 1100;
 
   @media (max-width: 768px) {
     display: flex;
@@ -98,6 +113,7 @@ const Hamburger = styled.div`
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [selectedPath, setSelectedPath] = useState('');
   const { cartProducts } = useContext(CartContext);
   const router = useRouter();
 
@@ -107,38 +123,13 @@ const Navbar = () => {
 
   const handleNavigation = (path) => {
     setOpen(false);
+    setSelectedPath(path);
     router.push(path);
   };
 
-  // Utilisation de useEffect pour gérer les liens dynamiquement
   useEffect(() => {
-    const menuItems = [
-      { path: '/voitures', label: 'VOITURES' },
-      { path: '/motos', label: 'MOTOS' },
-      { path: '/voitureSpeciales', label: 'VÉHICULES SPÉCIAUX' },
-      { path: '/cart', label: 'RESERVER' },
-      { path: '/services', label: 'SERVICES' },
-      { path: '/contact', label: 'CONTACT' },
-    ];
-
-    const menuList = document.getElementById('menuList');
-    menuList.innerHTML = '';
-
-    menuItems.forEach(item => {
-      const menuItem = document.createElement('li');
-      menuItem.className = 'menu-item';
-      menuItem.style.margin = '20px 0';
-      menuItem.style.padding = '10px 0';
-      menuItem.style.color = '#fff';
-      menuItem.innerHTML = `<a href="${item.path}" style="color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: bold;">${item.label}</a>`;
-      menuItem.addEventListener('click', (e) => {
-        e.preventDefault();
-        handleNavigation(item.path);
-      });
-
-      menuList.appendChild(menuItem);
-    });
-  }, []);
+    setSelectedPath(router.pathname);
+  }, [router.pathname]);
 
   return (
     <NavbarContainer>
@@ -150,7 +141,26 @@ const Navbar = () => {
       <Hamburger onClick={handleToggle}>
         {open ? <FaTimes size={25} color="#ff7a00" /> : <FaBars size={25} color="#ff7a00" />}
       </Hamburger>
-      <Menu id="menuList" open={open}></Menu>
+      <Menu open={open}>
+        <MenuItem selected={selectedPath === '/voitures'}>
+          <Link href="/voitures">VOITURES</Link>
+        </MenuItem>
+        <MenuItem selected={selectedPath === '/motos'}>
+          <Link href="/motos">MOTOS</Link>
+        </MenuItem>
+        <MenuItem selected={selectedPath === '/voitureSpeciales'}>
+          <Link href="/voitureSpeciales">VÉHICULES SPÉCIAUX</Link>
+        </MenuItem>
+        <MenuItem selected={selectedPath === '/cart'}>
+          <Link href="/cart">RESERVER</Link>
+        </MenuItem>
+        <MenuItem selected={selectedPath === '/services'}>
+          <Link href="/services">SERVICES</Link>
+        </MenuItem>
+        <MenuItem selected={selectedPath === '/contact'}>
+          <Link href="/contact">CONTACT</Link>
+        </MenuItem>
+      </Menu>
     </NavbarContainer>
   );
 };

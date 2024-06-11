@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import WhatsappButton from '@/components/WhatsappButton';
+import MailButton from '@/components/MailButton';
+
 
 // Styles
 const Container = styled.div`
@@ -174,7 +177,8 @@ const Services = () => {
         <ContactLink href="/contact">Formulaire de contact</ContactLink>
       </ContactSection>
 
-     
+      <WhatsappButton /> 
+      <MailButton mailto="info@guideinmaroc.com"/> 
     </Container>
   );
 };

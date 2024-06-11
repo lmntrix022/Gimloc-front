@@ -52,7 +52,10 @@ const ProductsGrid = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  // Trier les produits par prix en ordre croissant
+  const sortedProducts = [...products].sort((a, b) => a.price - b.price);
+
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
@@ -63,7 +66,7 @@ const ProductsGrid = ({ products }) => {
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const selectedProducts = products.slice(startIndex, startIndex + itemsPerPage);
+  const selectedProducts = sortedProducts.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <>
@@ -72,7 +75,7 @@ const ProductsGrid = ({ products }) => {
           <ProductBox key={product._id} {...product} />
         ))}
       </StyledProductsGrid>
-      {products.length > itemsPerPage && (
+      {sortedProducts.length > itemsPerPage && (
         <PaginationControls>
           <button onClick={handlePrevPage} disabled={currentPage === 1}>
             <FontAwesomeIcon icon={faArrowLeft} />

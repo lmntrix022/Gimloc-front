@@ -12,37 +12,37 @@ import Faq from "@/components/Faq";
 const testimonials = [
   {
     text: "Je recommande vivement cette entreprise. Le service est impeccable et les voitures sont en excellent état.",
-    name: "Alice Dupont",
+    name: "Asma",
     title: "Directrice Marketing",
     image: "/profil/alice.png"
   },
   {
     text: "Une expérience d'achat parfaite du début à la fin. La voiture était moderne et confortable.",
-    name: "Jean Martin",
+    name: "Akim",
     title: "Ingénieur",
     image: "/profil/jean.png"
   },
   {
     text: "Excellent service, très flexible et accommodant. La voiture a rendu notre séjour à Marrakech encore plus agréable.",
-    name: "Marie Leroy",
+    name: "Fadwa",
     title: "Chef de Projet",
     image: "/profil/marie.png"
   },
   {
     text: "Service de qualité supérieure. La réservation était facile et la voiture était prête à notre arrivée.",
-    name: "Pierre Dubois",
+    name: "Moustapha",
     title: "Développeur Web",
     image: "/profil/pierre.png"
   },
   {
     text: "Service exceptionnel chez Gimlocautomoto, toujours ponctuels et des véhicules impeccables.",
-    name: "Maria Papet",
+    name: "Meryem",
     title: "Chef de Projet",
     image: "/profil/maria.png"
   },
   {
     text: "Une expérience de location agréable avec Gimlocautomoto, personnel sympathique et tarifs compétitifs..",
-    name: "Pierrette Dupouille",
+    name: "Karima",
     title: "Développeur Web",
     image: "/profil/Pierrette.png"
   }

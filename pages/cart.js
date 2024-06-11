@@ -6,6 +6,10 @@ import { CartContext } from "@/components/CartContext";
 import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
+import WhatsappButton from '@/components/WhatsappButton';
+import MailButton from '@/components/MailButton';
+
+
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -176,6 +180,7 @@ useEffect(() => {
             </Box>
           </ColumnsWrapper>
         </Center>
+        
       </>
     );
   }
@@ -277,6 +282,9 @@ useEffect(() => {
           )}
         </ColumnsWrapper>
       </Center>
+      <WhatsappButton /> 
+      <MailButton mailto="info@guideinmaroc.com"/> 
+      <br />
     </>
   );
 }

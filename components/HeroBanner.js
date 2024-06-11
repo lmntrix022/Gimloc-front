@@ -87,7 +87,7 @@ const Reservation = ({ products }) => {
       <HeroBanner>
         <BannerTitle>Bienvenue chez <br /> Guide in Maroc</BannerTitle>
         <BannerDescription>
-          Découvrez notre vaste sélection de véhicule, motos, quads et plus encore. Que vous soyez passionné de vitesse, amateur de sensations fortes ou simplement à la recherche d&#39;un véhicule fiable pour vos déplacements quotidiens, nous avons ce qu&#39;il vous faut. Explorez notre site pour trouver des informations détaillées, des conseils d&#39;experts et des offres exceptionnelles sur une large gamme de véhicules.
+          Découvrez notre vaste sélection de véhicules, motos, quads et plus encore. Que vous soyez passionné de vitesse, amateur de sensations fortes ou simplement à la recherche d&#39;un véhicule fiable pour vos déplacements quotidiens, nous avons ce qu&#39;il vous faut. Explorez notre site pour trouver des informations détaillées, des conseils d&#39;experts et des offres exceptionnelles sur une large gamme de véhicules.
         </BannerDescription>
       </HeroBanner>
       <br />

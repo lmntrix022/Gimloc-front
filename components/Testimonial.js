@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import Image from 'next/image';
 
 const TestimonialWrapper = styled.div`
-  margin: 100px 0 0;
+  margin: 100px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,9 +15,10 @@ const TestimonialWrapper = styled.div`
 
 const Title = styled.h2`
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 2rem;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
   color: #333;
+  letter-spacing: 1px;
 `;
 
 const slide = keyframes`
@@ -31,41 +32,50 @@ const slide = keyframes`
 
 const Carousel = styled.div`
   display: flex;
-  flex-wrap: nowrap;
   animation: ${slide} 40s linear infinite;
   white-space: nowrap;
+
+  @media screen and (max-width: 768px) {
+    animation-duration: 60s;
+  }
 `;
 
 const TestimonialItem = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin: 0 50px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 0 20px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const TestimonialText = styled.p`
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.1rem;
+  color: #555;
   margin: 10px 0;
   text-align: center;
+  font-style: italic;
 `;
 
 const Author = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 15px;
 `;
 
 const AuthorImage = styled(Image)`
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 15px;
 `;
 
 const AuthorInfo = styled.div`
@@ -77,12 +87,7 @@ const AuthorInfo = styled.div`
 const AuthorName = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
-  color: #000;
-`;
-
-const AuthorTitle = styled.div`
-  font-size: 0.9rem;
-  color: #666;
+  color: #333;
 `;
 
 export default function TestimonialCarousel({ testimonials }) {
@@ -97,7 +102,6 @@ export default function TestimonialCarousel({ testimonials }) {
               <AuthorImage src={testimonial.image} width={50} height={50} alt={testimonial.name} />
               <AuthorInfo>
                 <AuthorName>{testimonial.name}</AuthorName>
-                <AuthorTitle>{testimonial.title}</AuthorTitle>
               </AuthorInfo>
             </Author>
           </TestimonialItem>
