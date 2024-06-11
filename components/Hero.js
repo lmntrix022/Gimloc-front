@@ -135,7 +135,7 @@ const Hero = () => {
           <BentoBox bgImage="./background/bg1.jpg" style={{ gridArea: 'box1' }}>
             <FaCar className="icon" />
             <div className="title">Location de Voitures</div>
-            <p className='BentoDescription'>Chez Gimlocautomoto, notre mission est simple : faire en sorte que chaque événement rencontre à l&#39;instant parfait. Depuis notre création, nous nous engageons à offrir un service de location de voiture qui s&#39;adapte à vos besoins et dépasse vos attentes.</p>
+            <p className='BentoDescription'>Chez Guide In Maroc, notre mission est simple : faire en sorte que chaque événement rencontre à l&#39;instant parfait. Depuis notre création, nous nous engageons à offrir un service de location de voiture qui s&#39;adapte à vos besoins et dépasse vos attentes.</p>
           </BentoBox>
           <BentoBox bgImage="./background/bg2.jpg" style={{ gridArea: 'box2' }}>
             <FaMapSigns className="icon" />

@@ -131,6 +131,14 @@ const Navbar = () => {
     setSelectedPath(router.pathname);
   }, [router.pathname]);
 
+  const NavLink = ({ href, children }) => (
+    <MenuItem selected={selectedPath === href}>
+      <Link href={href} onClick={() => handleNavigation(href)}>
+        {children}
+      </Link>
+    </MenuItem>
+  );
+
   return (
     <NavbarContainer>
       <Logo>
@@ -142,24 +150,12 @@ const Navbar = () => {
         {open ? <FaTimes size={25} color="#ff7a00" /> : <FaBars size={25} color="#ff7a00" />}
       </Hamburger>
       <Menu open={open}>
-        <MenuItem selected={selectedPath === '/voitures'}>
-          <Link href="/voitures">VOITURES</Link>
-        </MenuItem>
-        <MenuItem selected={selectedPath === '/motos'}>
-          <Link href="/motos">MOTOS</Link>
-        </MenuItem>
-        <MenuItem selected={selectedPath === '/voitureSpeciales'}>
-          <Link href="/voitureSpeciales">VÉHICULES SPÉCIAUX</Link>
-        </MenuItem>
-        <MenuItem selected={selectedPath === '/cart'}>
-          <Link href="/cart">RESERVER</Link>
-        </MenuItem>
-        <MenuItem selected={selectedPath === '/services'}>
-          <Link href="/services">SERVICES</Link>
-        </MenuItem>
-        <MenuItem selected={selectedPath === '/contact'}>
-          <Link href="/contact">CONTACT</Link>
-        </MenuItem>
+        <NavLink href="/voitures">VOITURES</NavLink>
+        <NavLink href="/motos">MOTOS</NavLink>
+        <NavLink href="/voitureSpeciales">VÉHICULES SPÉCIAUX</NavLink>
+        <NavLink href="/cart">RESERVER</NavLink>
+        <NavLink href="/services">SERVICES</NavLink>
+        <NavLink href="/contact">CONTACT</NavLink>
       </Menu>
     </NavbarContainer>
   );

@@ -7,41 +7,51 @@ export function CartContextProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
 
   useEffect(() => {
-    if (cartProducts?.length > 0) {
-      ls?.setItem('cart', JSON.stringify(cartProducts));
+    if (ls) {
+      const storedCart = ls.getItem('cart');
+      if (storedCart) {
+        setCartProducts(JSON.parse(storedCart));
+      }
     }
-  }, [cartProducts]);
+  }, [ls]);
 
   useEffect(() => {
-    if (ls && ls.getItem('cart')) {
-      setCartProducts(JSON.parse(ls.getItem('cart')));
+    if (ls) {
+      if (cartProducts.length > 0) {
+        ls.setItem('cart', JSON.stringify(cartProducts));
+      } else {
+        ls.removeItem('cart');
+      }
     }
-  }, []);
+  }, [cartProducts, ls]);
 
-  function addProduct(productId) {
+  const addProduct = (productId) => {
     setCartProducts(prev => [...prev, productId]);
-  }
+  };
 
-  function removeProduct(productId) {
+  const removeProduct = (productId) => {
     setCartProducts(prev => {
       const pos = prev.indexOf(productId);
       if (pos !== -1) {
-        return prev.filter((value, index) => index !== pos);
+        return prev.filter((_, index) => index !== pos);
       }
       return prev;
     });
-  }
+  };
 
-  function removeFromCart(productId) {
+  const removeFromCart = (productId) => {
     setCartProducts(prev => prev.filter(id => id !== productId));
-  }
+  };
 
-  function clearCart() {
+  const clearCart = () => {
     setCartProducts([]);
-    ls.removeItem('cart');  }
+    if (ls) {
+      ls.removeItem('cart');
+    }
+  };
 
   return (
-    <CartContext.Provider value={{ cartProducts, setCartProducts, addProduct, removeProduct, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cartProducts, addProduct, removeProduct, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

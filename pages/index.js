@@ -35,13 +35,13 @@ const testimonials = [
     image: "/profil/pierre.png"
   },
   {
-    text: "Service exceptionnel chez Gimlocautomoto, toujours ponctuels et des véhicules impeccables.",
+    text: "Service exceptionnel chez Guide In Maroc, toujours ponctuels et des véhicules impeccables.",
     name: "Meryem",
     title: "Chef de Projet",
     image: "/profil/maria.png"
   },
   {
-    text: "Une expérience de location agréable avec Gimlocautomoto, personnel sympathique et tarifs compétitifs..",
+    text: "Une expérience de location agréable avec Guide In Maroc, personnel sympathique et tarifs compétitifs..",
     name: "Karima",
     title: "Développeur Web",
     image: "/profil/Pierrette.png"

@@ -114,7 +114,7 @@ const Footer = () => {
         </FooterSection>
       </FooterContent>
       <FooterBottom>
-        Copyright © 2024. Gimloc
+        Copyright © 2024. Guide In Maroc
       </FooterBottom>
     </FooterContainer>
   );

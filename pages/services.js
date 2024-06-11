@@ -139,7 +139,7 @@ const Services = () => {
   return (
     <Container>
       <Header>
-        <Title>Gimlocautomoto SERVICES</Title>
+        <Title>Guide In Maroc</Title>
         <Subtitle>Vivez l&#39;Expérience d&#39;un Service de Location de Voitures qui Dépasse Vos Attentes</Subtitle>
       </Header>
 
@@ -166,7 +166,7 @@ const Services = () => {
 
       <Testimonials>
         <Testimonial>
-        &quot;Grâce à Gimlocautomoto, j&#39;ai pu obtenir une voiture de qualité en un temps record. Service impeccable et équipe très professionnelle !&quot; - Client Satisfait
+        &quot;Grâce à Guide In Maroc, j&#39;ai pu obtenir une voiture de qualité en un temps record. Service impeccable et équipe très professionnelle !&quot; - Client Satisfait
         </Testimonial>
       </Testimonials>
 

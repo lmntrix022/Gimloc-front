@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { CartContext } from "@/components/CartContext";
 import Tilt from 'react-parallax-tilt';
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const ProductWrapper = styled.div`
   background: rgba(255, 255, 255, 0.1);
@@ -89,18 +90,23 @@ const ReserveButton = styled(Button)`
   box-shadow: 3px 3px 6px rgba(190, 190, 190, 0.7), -3px -3px 6px rgba(255, 255, 255, 0.7);
   font-weight: bold;
 
-
   &:hover {
     background-color: black;
     color: #ff7a00;
     box-shadow: 3px 3px 6px rgba(190, 190, 190, 0.7), -3px -3px 6px rgba(255, 255, 255, 0.7);
-
   }
 `;
 
 export default function ProductBox({_id, title, description, price, images}) {
   const { addProduct } = useContext(CartContext);
+  const router = useRouter();
   const url = '/product/' + _id;
+
+  const handleReserveClick = () => {
+    addProduct(_id);
+    router.push('/cart');
+  };
+
   return (
     <Tilt>
       <ProductWrapper>
@@ -110,6 +116,7 @@ export default function ProductBox({_id, title, description, price, images}) {
             alt={title} 
             layout="fill" 
             objectFit="contain" 
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
           />
         </ImageLink>
         <ProductInfoBox>
@@ -117,7 +124,7 @@ export default function ProductBox({_id, title, description, price, images}) {
           <PriceRow>
             <Price>€{price}/Jour</Price>
           </PriceRow><br />
-          <ReserveButton block onClick={() => addProduct(_id)}>
+          <ReserveButton block onClick={handleReserveClick}>
             Réservez
           </ReserveButton>
           <InfoRow>

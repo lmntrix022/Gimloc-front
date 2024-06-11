@@ -130,7 +130,7 @@ const WhyChooseGimlocautomoto = () => {
           <Feature>
             <div className="default-content">
               <IconTitleWrapper>
-                <FeatureTitle>Plusieurs Véhicules</FeatureTitle>
+                <FeatureTitle>NOS  <br/>  VEHICULES</FeatureTitle>
                 <Icon>
                   <Image src="/icon1-light-preview.png" alt="Grand parc de véhicules" width={100} height={100} />
                 </Icon>
@@ -150,7 +150,7 @@ const WhyChooseGimlocautomoto = () => {
           <Feature>
             <div className="default-content">
               <IconTitleWrapper>
-                <FeatureTitle>Excellent véhicules</FeatureTitle>
+                <FeatureTitle>ENTRETIEN ET <br/>  SECURITE</FeatureTitle>
                 <Icon>
                   <Image src="/icon3-star-preview.png" alt="Excellent état des véhicules" width={100} height={100} />
                 </Icon>
@@ -170,7 +170,7 @@ const WhyChooseGimlocautomoto = () => {
           <Feature>
             <div className="default-content">
               <IconTitleWrapper>
-                <FeatureTitle>Execellent service client</FeatureTitle>
+                <FeatureTitle> SERVICE &nbsp; <br/> CLIENT</FeatureTitle>
                 <Icon>
                   <Image src="/icon2-grade-preview.png" alt="Un service clientèle de premier ordre" width={100} height={100} />
                 </Icon>

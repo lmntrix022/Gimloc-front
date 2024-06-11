@@ -9,8 +9,6 @@ import Input from "@/components/Input";
 import WhatsappButton from '@/components/WhatsappButton';
 import MailButton from '@/components/MailButton';
 
-
-
 const ColumnsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -83,72 +81,49 @@ export default function CartPage() {
   const [streetAddress, setStreetAddress] = useState('');
   const [country, setCountry] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
-  const [daysBetween, setDaysBetween] = useState(null); // Ajoutez ceci pour suivre la durée de la location
+  const [daysBetween, setDaysBetween] = useState(null);
 
   useEffect(() => {
-  // Simulez la récupération de la durée de la location depuis le formulaire de réservation
-  const storedDaysBetween = localStorage.getItem('daysBetween');
-  if (storedDaysBetween) {
-    setDaysBetween(Number(storedDaysBetween));
-  }
+    const storedDaysBetween = localStorage.getItem('daysBetween');
+    if (storedDaysBetween) {
+      setDaysBetween(Number(storedDaysBetween));
+    }
 
-  if (cartProducts.length > 0) {
-    axios.post('/api/cart', { ids: cartProducts })
-      .then(response => {
-        setProducts(response.data);
-      });
-  } else {
-    setProducts([]);
-  }
-}, [cartProducts]);
-
-// Ajoutez un console.log pour vérifier daysBetween
-useEffect(() => {
-  console.log("daysBetween:", daysBetween);
-}, [daysBetween]);
-
+    if (cartProducts.length > 0) {
+      axios.post('/api/cart', { ids: cartProducts })
+        .then(response => {
+          setProducts(response.data);
+        });
+    } else {
+      setProducts([]);
+    }
+  }, [cartProducts]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
-    if (window?.location.href.includes('success')) {
+    if (window.location.href.includes('success')) {
       setIsSuccess(true);
       clearCart();
     }
   }, []);
 
-  function moreOfThisProduct(id) {
+  const moreOfThisProduct = (id) => {
     addProduct(id);
-  }
+  };
 
-  function lessOfThisProduct(id) {
+  const lessOfThisProduct = (id) => {
     removeProduct(id);
-  }
+  };
 
-
-  function increaseDays(productId) {
-    setDaysBetween(prevState => ({
-      ...prevState,
-      [productId]: (prevState[productId] || 0) + 1
-    }));
-  }
-  
-  function decreaseDays(productId) {
-    setDaysBetween(prevState => ({
-      ...prevState,
-      [productId]: Math.max((prevState[productId] || 0) - 1, 0)
-    }));
-  }
-
-
-  async function goToPayment() {
+  const goToPayment = async () => {
     const reservationData = {
       name, email, city, postalCode, streetAddress, country,
       cartProducts,
-      daysBetween, // Incluez la durée de la location dans les données de réservation
+      daysBetween,
     };
-  
+
     try {
       await axios.post('/api/saveReservation', reservationData);
       const response = await axios.post('/api/checkout', reservationData);
@@ -158,133 +133,95 @@ useEffect(() => {
     } catch (error) {
       console.error('Failed to save reservation', error);
     }
-  }
-  
+  };
 
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find(p => p._id === productId)?.price || 0;
-    total += price  ; 
-    console.log(daysBetween);
-    // Multipliez le prix par la durée de la location
+    total += price;
   }
 
   if (isSuccess) {
     return (
-      <>
-        <Center>
-          <ColumnsWrapper>
-            <Box>
-              <h1>Merci pour votre commande !</h1>
-              <p>On vous enverra un courriel pour confirmer votre réservation.</p>
-            </Box>
-          </ColumnsWrapper>
-        </Center>
-        
-      </>
+      <Center>
+        <ColumnsWrapper>
+          <Box>
+            <h1>Merci pour votre commande !</h1>
+            <p>On vous enverra un courriel pour confirmer votre réservation.</p>
+          </Box>
+        </ColumnsWrapper>
+      </Center>
     );
   }
 
   return (
-    <>
-      <Center>
-        <ColumnsWrapper>
-          <Box>
-            <h2>Réservation</h2>
-            {!cartProducts?.length && (
-              <div>Pas de réservation</div>
-            )}
-            {products?.length > 0 && (
-              <Table>
-                <thead>
-                  <tr>
-                    <th>Produit</th>
-                    <th>Nombre de jour</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map(product => (
-                    <tr key={product._id}>
-                      <ProductInfoCell>
-                        <ProductImageBox>
-                          <img src={product.images[0]} alt="" />
-                        </ProductImageBox>
-                        {product.title}
-                      </ProductInfoCell>
-                      <td>
-                      <QuantityLabel>
-                        <Button
-                            onClick={() => lessOfThisProduct(product._id)}>-</Button>
-                        <QuantityLabel>
-                            {cartProducts.filter(id => id === product._id).length}
-                        </QuantityLabel>
-                          <Button
-                            onClick={() => moreOfThisProduct(product._id)}>+</Button>
-                        </QuantityLabel>
-                      </td>
-                      <td>
-                        <Button onClick={() => removeFromCart(product._id)}>Supprimer</Button>
-                      </td>
-                    </tr>
-                  ))}
-                  <tr>
-                    <td></td>
-                    <td></td>
+    <Center>
+      <ColumnsWrapper>
+        <Box>
+          <h2>Réservation</h2>
+          {!cartProducts.length && <div>Pas de réservation</div>}
+          {products.length > 0 && (
+            <Table>
+              <thead>
+                <tr>
+                  <th>Produit</th>
+                  <th>Nombre de jour</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map(product => (
+                  <tr key={product._id}>
+                    <ProductInfoCell>
+                      <ProductImageBox>
+                        <img src={product.images[0]} alt="" />
+                      </ProductImageBox>
+                      {product.title}
+                    </ProductInfoCell>
                     <td>
-                      <TotalText>Total: €{total}</TotalText>
+                      <QuantityLabel>
+                        <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
+                        <QuantityLabel>
+                          {cartProducts.filter(id => id === product._id).length}
+                        </QuantityLabel>
+                        <Button onClick={() => moreOfThisProduct(product._id)}>+</Button>
+                      </QuantityLabel>
+                    </td>
+                    <td>
+                      <Button onClick={() => removeFromCart(product._id)}>Supprimer</Button>
                     </td>
                   </tr>
-                </tbody>
-              </Table>
-            )}
-          </Box>
-          {!!cartProducts?.length && (
-            <Box>
-              <h2>Informations sur les commandes</h2>
-              <Input type="text"
-                placeholder="Nom"
-                value={name}
-                name="name"
-                onChange={ev => setName(ev.target.value)} />
-              <Input type="text"
-                placeholder="Email"
-                value={email}
-                name="email"
-                onChange={ev => setEmail(ev.target.value)} />
-              <CityHolder>
-                <Input type="text"
-                  placeholder="Ville"
-                  value={city}
-                  name="city"
-                  onChange={ev => setCity(ev.target.value)} />
-                <Input type="text"
-                  placeholder="Code Postal"
-                  value={postalCode}
-                  name="postalCode"
-                  onChange={ev => setPostalCode(ev.target.value)} />
-              </CityHolder>
-              <Input type="text"
-                placeholder="Adresse"
-                value={streetAddress}
-                name="streetAddress"
-                onChange={ev => setStreetAddress(ev.target.value)} />
-              <Input type="text"
-                placeholder="Pays"
-                value={country}
-                name="country"
-                onChange={ev => setCountry(ev.target.value)} />
-              <Button black block
-                onClick={goToPayment}>
-                Continuer le paiement
-              </Button>
-            </Box>
+                ))}
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <TotalText>Total: €{total}</TotalText>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
           )}
-        </ColumnsWrapper>
-      </Center>
-      <WhatsappButton /> 
-      <MailButton mailto="info@guideinmaroc.com"/> 
-      <br />
-    </>
+        </Box>
+        {!!cartProducts.length && (
+          <Box>
+            <h2>Informations sur les commandes</h2>
+            <Input type="text" placeholder="Nom" value={name} onChange={ev => setName(ev.target.value)} />
+            <Input type="text" placeholder="Email" value={email} onChange={ev => setEmail(ev.target.value)} />
+            <CityHolder>
+              <Input type="text" placeholder="Ville" value={city} onChange={ev => setCity(ev.target.value)} />
+              <Input type="text" placeholder="Code Postal" value={postalCode} onChange={ev => setPostalCode(ev.target.value)} />
+            </CityHolder>
+            <Input type="text" placeholder="Adresse" value={streetAddress} onChange={ev => setStreetAddress(ev.target.value)} />
+            <Input type="text" placeholder="Pays" value={country} onChange={ev => setCountry(ev.target.value)} />
+            <Button black block onClick={goToPayment}>
+              Continuer le paiement
+            </Button>
+          </Box>
+        )}
+      </ColumnsWrapper>
+      <WhatsappButton />
+      <MailButton mailto="info@guideinmaroc.com" />
+    </Center>
   );
 }
