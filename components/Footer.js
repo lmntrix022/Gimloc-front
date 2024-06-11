@@ -81,7 +81,7 @@ const Footer = () => {
         <FooterSection>
           <SectionTitle>A PROPOS</SectionTitle>
           <p>
-            Notre équipe est à votre disposition 7j/7 pour epondre à vos question afin de vous garantir un service sur mesure.
+            Notre équipe est à votre disposition 7j/7 pour répondre à vos questions afin de vous garantir un service sur mesure.
           </p>
         </FooterSection>
         <FooterSection>
