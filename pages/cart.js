@@ -6,8 +6,9 @@ import { CartContext } from "@/components/CartContext";
 import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
-import WhatsappButton from '@/components/WhatsappButton';
-import MailButton from '@/components/MailButton';
+import WhatsappButton from "@/components/WhatsappButton";
+import MailButton from "@/components/MailButton";
+import Image from 'next/image';
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -20,9 +21,18 @@ const ColumnsWrapper = styled.div`
 `;
 
 const Box = styled.div`
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px;
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const ScrollableContent = styled.div`
+  max-height: 400px;  /* Fixez la hauteur du formulaire ici */
+  overflow-y: auto;  /* Ajoutez un défilement vertical si le contenu dépasse la hauteur */
 `;
 
 const ProductInfoCell = styled.td`
@@ -38,19 +48,18 @@ const ProductImageBox = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  img {
-    max-width: 60px;
-    max-height: 60px;
-  }
+  box-shadow: inset 6px 6px 12px #bebebe, inset -6px -6px 12px #ffffff;
   @media screen and (min-width: 768px) {
     padding: 10px;
     width: 100px;
     height: 100px;
-    img {
-      max-width: 80px;
-      max-height: 80px;
-    }
   }
+`;
+
+const QuantityWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 const QuantityLabel = styled.span`
@@ -174,18 +183,18 @@ export default function CartPage() {
                   <tr key={product._id}>
                     <ProductInfoCell>
                       <ProductImageBox>
-                        <img src={product.images[0]} alt="" />
+                        <Image src={product.images[0]} alt={product.title} width={80} height={80} />
                       </ProductImageBox>
                       {product.title}
                     </ProductInfoCell>
                     <td>
-                      <QuantityLabel>
+                      <QuantityWrapper>
                         <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
                         <QuantityLabel>
                           {cartProducts.filter(id => id === product._id).length}
                         </QuantityLabel>
                         <Button onClick={() => moreOfThisProduct(product._id)}>+</Button>
-                      </QuantityLabel>
+                      </QuantityWrapper>
                     </td>
                     <td>
                       <Button onClick={() => removeFromCart(product._id)}>Supprimer</Button>
@@ -205,23 +214,27 @@ export default function CartPage() {
         </Box>
         {!!cartProducts.length && (
           <Box>
-            <h2>Informations sur les commandes</h2>
-            <Input type="text" placeholder="Nom" value={name} onChange={ev => setName(ev.target.value)} />
-            <Input type="text" placeholder="Email" value={email} onChange={ev => setEmail(ev.target.value)} />
-            <CityHolder>
-              <Input type="text" placeholder="Ville" value={city} onChange={ev => setCity(ev.target.value)} />
-              <Input type="text" placeholder="Code Postal" value={postalCode} onChange={ev => setPostalCode(ev.target.value)} />
-            </CityHolder>
-            <Input type="text" placeholder="Adresse" value={streetAddress} onChange={ev => setStreetAddress(ev.target.value)} />
-            <Input type="text" placeholder="Pays" value={country} onChange={ev => setCountry(ev.target.value)} />
-            <Button black block onClick={goToPayment}>
-              Continuer le paiement
-            </Button>
+            <ScrollableContent>
+              <h2>Informations sur les commandes</h2>
+              <Input type="text" placeholder="Nom" value={name} onChange={ev => setName(ev.target.value)} />
+              <Input type="text" placeholder="Email" value={email} onChange={ev => setEmail(ev.target.value)} />
+              <CityHolder>
+                <Input type="text" placeholder="Ville" value={city} onChange={ev => setCity(ev.target.value)} />
+                <Input type="text" placeholder="Code Postal" value={postalCode} onChange={ev => setPostalCode(ev.target.value)} />
+              </CityHolder>
+              <Input type="text" placeholder="Adresse" value={streetAddress} onChange={ev => setStreetAddress(ev.target.value)} />
+              <Input type="text" placeholder="Pays" value={country} onChange={ev => setCountry(ev.target.value)} />
+              <Button black block onClick={goToPayment}>
+                Continuer le paiement
+              </Button>
+            </ScrollableContent>
           </Box>
         )}
       </ColumnsWrapper>
+      <br />
       <WhatsappButton />
       <MailButton mailto="info@guideinmaroc.com" />
+
     </Center>
   );
 }

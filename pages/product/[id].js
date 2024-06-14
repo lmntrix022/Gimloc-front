@@ -9,6 +9,7 @@ import Button from "@/components/Button";
 import CartIcon from "@/components/icons/CartIcon";
 import { useContext } from "react";
 import { CartContext } from "@/components/CartContext";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 const ColWrapper = styled.div`
@@ -20,11 +21,13 @@ const ColWrapper = styled.div`
   gap: 40px;
   margin: 40px 0;
 `;
+
 const PriceRow = styled.div`
   display: flex;
   gap: 20px;
   align-items: center;
 `;
+
 const Price = styled.span`
   font-size: 1.4rem;
 `;
@@ -50,59 +53,64 @@ const InfoItem = styled.div`
 
 export default function ProductPage({ product }) {
   const { addProduct } = useContext(CartContext);
+  const router = useRouter();
+
+  const handleReserveClick = () => {
+    addProduct(product._id);
+    router.push('/cart');
+  };
+
   return (
-    <>
-      <Center>
-        <ColWrapper>
-          <WhiteBox>
-            <ProductImages images={product.images} />
-            <InfoRow>
-              <InfoItem>
-                <Image 
-                  src="/icons/steering-wheel.svg" 
-                  width="16" 
-                  height="16" 
-                  alt="Steering Wheel" 
-                  sizes="(max-width: 768px) 100vw, 16px"
-                />
-              </InfoItem>
-              <InfoItem>
-                <Image 
-                  src="/icons/gas.svg" 
-                  width="16" 
-                  height="16" 
-                  alt="Gas" 
-                  sizes="(max-width: 768px) 100vw, 16px"
-                />
-              </InfoItem>
-              <InfoItem>
-                <Image 
-                  src="/icons/tire.svg" 
-                  width="16" 
-                  height="16" 
-                  alt="Tire" 
-                  sizes="(max-width: 768px) 100vw, 16px"
-                />
-              </InfoItem>
-            </InfoRow>
-          </WhiteBox>
-          <div>
-            <Title>{product.title}</Title>
-            <p>{product.description}</p>
-            <PriceRow>
-              <div>
-                <Price>€{product.price}</Price>
-              </div>
-              <div>
-                <Button primary onClick={() => addProduct(product._id)}>
-                  <CartIcon /> Réserver
-                </Button>
-              </div>
-            </PriceRow>
-          </div>
-        </ColWrapper>
-      </Center>
-    </>
+    <Center>
+      <ColWrapper>
+        <WhiteBox>
+          <ProductImages images={product.images} />
+          <InfoRow>
+            <InfoItem>
+              <Image 
+                src="/icons/steering-wheel.svg" 
+                width="16" 
+                height="16" 
+                alt="Steering Wheel" 
+                sizes="(max-width: 768px) 100vw, 16px"
+              />
+            </InfoItem>
+            <InfoItem>
+              <Image 
+                src="/icons/gas.svg" 
+                width="16" 
+                height="16" 
+                alt="Gas" 
+                sizes="(max-width: 768px) 100vw, 16px"
+              />
+            </InfoItem>
+            <InfoItem>
+              <Image 
+                src="/icons/tire.svg" 
+                width="16" 
+                height="16" 
+                alt="Tire" 
+                sizes="(max-width: 768px) 100vw, 16px"
+              />
+            </InfoItem>
+          </InfoRow>
+        </WhiteBox>
+        <div>
+          <Title>{product.title}</Title>
+          <p>{product.description}</p>
+          <PriceRow>
+            <div>
+              <Price>€{product.price}</Price>
+            </div>
+            <div>
+              <Button primary block onClick={handleReserveClick}>
+                <CartIcon /> Réserver
+              </Button>
+            </div>
+          </PriceRow>
+        </div>
+      </ColWrapper>
+    </Center>
   );
 }
 

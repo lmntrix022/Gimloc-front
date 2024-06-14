@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link'; // Import Link from next/link
 import WhatsappButton from '@/components/WhatsappButton';
 import MailButton from '@/components/MailButton';
-
 
 // Styles
 const Container = styled.div`
@@ -18,13 +18,15 @@ const Header = styled.header`
 
 const Title = styled.h1`
   font-size: 2.5em;
-  color: #fff
+  color: #000;
   margin-bottom: 10px;
 `;
 
 const Subtitle = styled.h2`
   font-size: 1.5em;
-  color: #ff7b01;
+  background: linear-gradient(to right, #ff7b01, #000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const ServiceList = styled.div`
@@ -61,23 +63,26 @@ const Price = styled.p`
 `;
 
 const CTAButton = styled.button`
-width: 100%;
-padding: 12px;
-background-color: ${({ disabled }) => (disabled ? '#ff7a00' : '#000')};
-color: ${({ disabled }) => (disabled ? '#000' : '#ff7a00')};
-border: none;
-border-radius: 10px;
-cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-margin-top: 10px;
-font-size: 1rem;
-font-weight: bold;
-box-shadow: 3px 3px 6px rgba(190, 190, 190, 0.7), -3px -3px 6px rgba(255, 255, 255, 0.7);
+  width: 100%;
+  padding: 12px;
+  background-color: ${({ disabled }) => (disabled ? '#ff7a00' : '#000')};
+  color: ${({ disabled }) => (disabled ? '#000' : '#ff7a00')};
+  border: none;
+  border-radius: 10px;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 3px 3px 6px rgba(190, 190, 190, 0.7), -3px -3px 6px rgba(255, 255, 255, 0.7);
 
-&:hover {
-  color: #000;
-  background-color: #ff7b01;
-  box-shadow: ${({ disabled }) => (disabled ? 'none' : 'inset 3px 3px 6px rgba(190, 190, 190, 0.7), inset -3px -3px 6px rgba(255, 255, 255, 0.7)')};
-}
+  &:hover {
+    color: #000;
+    background-color: #ff7b01;
+    box-shadow: ${({ disabled }) =>
+      disabled
+        ? 'none'
+        : 'inset 3px 3px 6px rgba(190, 190, 190, 0.7), inset -3px -3px 6px rgba(255, 255, 255, 0.7)'};
+  }
 `;
 
 const Testimonials = styled.section`
@@ -148,19 +153,25 @@ const Services = () => {
           <ServiceTitle>Location de Véhicules</ServiceTitle>
           <ServiceDescription>Profitez d&#39;une large gamme de véhicules récents et bien entretenus, parfaits pour toutes vos besoins de déplacement.</ServiceDescription>
           <Price>À partir de 50€/jour pour une voiture ou une moto</Price>
-          <CTAButton>En savoir plus</CTAButton>
+          <Link href="/contact">
+            <CTAButton>En savoir plus</CTAButton>
+          </Link>
         </ServiceItem>
         <ServiceItem>
           <ServiceTitle>Livraison de Véhicules</ServiceTitle>
           <ServiceDescription>Bénéficiez de notre service de livraison pour recevoir votre véhicule directement à l&#39;adresse de votre choix.</ServiceDescription>
           <Price>Frais de livraison variables selon la distance</Price>
-          <CTAButton>En savoir plus</CTAButton>
+          <Link href="/contact">
+            <CTAButton>En savoir plus</CTAButton>
+          </Link>
         </ServiceItem>
         <ServiceItem>
-          <ServiceTitle>Prise en Charge </ServiceTitle>
+          <ServiceTitle>Prise en Charge</ServiceTitle>
           <ServiceDescription>Voyagez sans souci avec notre service de prise en charge à l&#39;aéroport, disponible dans les principaux aéroports.</ServiceDescription>
           <Price>Inclus dans la location pour les réservations de plus de 3 jours</Price>
-          <CTAButton>En savoir plus</CTAButton>
+          <Link href="/contact">
+            <CTAButton>En savoir plus</CTAButton>
+          </Link>
         </ServiceItem>
       </ServiceList>
 
@@ -173,12 +184,14 @@ const Services = () => {
       <ContactSection>
         <h2>Contactez-nous</h2>
         <ContactLink href="tel:+212627025716">Téléphone : +212627025716</ContactLink>
-        <ContactLink href="mailto:info@guideinmaroc.com">Email : info@guideinmaroc.com </ContactLink>
-        <ContactLink href="/contact">Formulaire de contact</ContactLink>
+        <ContactLink href="mailto:info@guideinmaroc.com">Email : info@guideinmaroc.com</ContactLink>
+        <Link href="/contact">
+          <ContactLink>Formulaire de contact</ContactLink>
+        </Link>
       </ContactSection>
 
-      <WhatsappButton /> 
-      <MailButton mailto="info@guideinmaroc.com"/> 
+      <WhatsappButton />
+      <MailButton mailto="info@guideinmaroc.com" />
     </Container>
   );
 };
